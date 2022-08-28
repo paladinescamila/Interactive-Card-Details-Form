@@ -12,6 +12,7 @@ This is a solution to the [Interactive card details form challenge on Frontend M
 ## Built with
 
 -   React.js
+-   TypeScript
 -   SCSS
 
 ## Author
