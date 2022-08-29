@@ -1,0 +1,138 @@
+@import '../../styles/variables.scss';
+
+.form-container {
+	display: flex;
+	flex-direction: column;
+	width: 420px;
+}
+
+fieldset {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 30px - 11px;
+	border: none;
+}
+
+label {
+	color: $very-dark-violet;
+	padding-bottom: 12px;
+	font-size: 12px;
+	letter-spacing: 12px * 0.17;
+}
+
+input[type='text'],
+input[type='number'] {
+	border: 1px solid $light-grayish-violet;
+	padding: 15px;
+	border-radius: 10px;
+	font-size: 18px;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+
+.input-error {
+	border: 1px solid $red !important;
+}
+
+.error-message {
+	color: $red;
+	font-size: 12px;
+	margin-top: 11px;
+}
+
+.form-exp-and-cvc {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 20px;
+}
+
+.form-exp-container {
+	display: flex;
+
+	div {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: 10px;
+
+		input {
+			width: 100%;
+		}
+	}
+}
+
+.form-cvc-container {
+	input {
+		width: 100%;
+	}
+}
+
+.form-submit,
+.form-message button {
+	border-radius: 10px;
+	padding: 20px;
+	border: none;
+	width: 100%;
+	background-color: $very-dark-violet;
+	color: $white;
+	font-size: 18px;
+	cursor: pointer;
+	transition: transform 0.5s ease-in-out;
+
+	&:hover {
+		transform: scale(1.01);
+	}
+}
+
+.disabled {
+	opacity: 0.7;
+}
+
+.form-message {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	img {
+		width: 80px;
+		height: 80px;
+		margin-bottom: 40px;
+	}
+
+	p:first-of-type {
+		color: $very-dark-violet;
+		font-size: 26px;
+		letter-spacing: 26px * 0.17;
+		margin-bottom: 28px;
+	}
+
+	p:last-of-type {
+		color: $dark-grayish-violet;
+		font-size: 18px;
+		margin-bottom: 48px;
+	}
+}
+
+.increase {
+	transform: scale(1);
+}
+
+.decrease {
+	transform: scale(0);
+}
+
+.form-container,
+.form-message {
+	background-color: $white;
+	padding: 20px;
+	border-radius: 10px;
+	transition: transform 0.5s ease-in-out;
+}

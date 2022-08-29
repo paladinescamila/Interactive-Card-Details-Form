@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
+@import './variables.scss';
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	outline: none;
+	font-family: 'Space Grotesk', sans-serif;
+}
+
+body {
+	width: 100%;
+	height: 100vh;
+}
+
+#root {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+.bg-main {
+	width: 483px;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -10;
+}
+
+.components {
+	display: grid;
+	grid-template-columns: 447px 360px;
+	grid-template-rows: repeat(2, 1fr);
+	grid-gap: 37px 220px;
+	grid-template-areas: 'front form' 'back form';
+}
+
+.front-card-container {
+	grid-area: front;
+}
+
+.back-card-container {
+	grid-area: back;
+	margin-left: 95px;
+}
+
+.form-container,
+.form-message {
+	grid-area: form;
+	align-self: center;
+}

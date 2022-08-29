@@ -1,0 +1,26 @@
+@import '../../styles/variables.scss';
+
+.back-card-container {
+	width: 447px;
+	height: 245px;
+	padding: 35px;
+	position: relative;
+}
+
+.back-card-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+
+.back-card-cvc {
+	color: $white;
+	font-size: 14px;
+	letter-spacing: 14px * 0.14;
+	position: absolute;
+	top: 112px;
+	right: 60px;
+}
