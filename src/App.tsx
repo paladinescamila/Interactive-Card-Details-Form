@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/App.scss';
 import DesktopBackground from './assets/bg-main-desktop.png';
-import MobileBackground from './assets/bg-main-mobile.png';
+// import MobileBackground from './assets/bg-main-mobile.png';
 import FrontCard from './components/FrontCard/FrontCard';
 import BackCard from './components/BackCard/BackCard';
 import Form from './components/Form/Form';
