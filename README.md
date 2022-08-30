@@ -2,7 +2,7 @@
 
 This is a solution to the [Interactive card details form challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-card-details-form-XpS8cKZDWw). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-![](https://raw.githubusercontent.com/paladinescamila/Interactive-Card-Details-Form/main/src/assets/screenshoot.png)
+![](https://raw.githubusercontent.com/paladinescamila/Interactive-Card-Details-Form/main/src/assets/screenshoot.png?token=GHSAT0AAAAAABXSCW7362SPPQ245V4TDXCIYYNWJ3Q)
 
 ## Links
 
