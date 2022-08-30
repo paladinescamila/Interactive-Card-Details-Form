@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import DataContext, {ErrorMap, CheckMap} from './DataContext';
+import DataContext, {ErrorMap} from './DataContext';
 
 interface DataProviderProps {
 	children: JSX.Element | JSX.Element[];
@@ -13,15 +13,7 @@ function DataProvider(props: DataProviderProps) {
 	const [cardYearExp, setCardYearExp] = useState('');
 	const [cardCVC, setCardCVC] = useState('');
 
-	// Navigation and style
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-	const [showForm, setShowForm] = useState(true);
-
-	window.onresize = () => {
-		setWindowWidth(window.innerWidth);
-	};
-
-	// Errors by input
+	// Error handling
 	const [inputsErrors, setInputsErrors] = useState<ErrorMap>({
 		name: new Set(),
 		number: new Set(),
@@ -30,14 +22,13 @@ function DataProvider(props: DataProviderProps) {
 		cvc: new Set(),
 	});
 
-	// If there is an error in the input
-	const [inputsOK, setInputsOK] = useState<CheckMap>({
-		name: true,
-		number: true,
-		expMonth: true,
-		expYear: true,
-		cvc: true,
-	});
+	// Navigation and style
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const [showForm, setShowForm] = useState(true);
+
+	window.onresize = () => {
+		setWindowWidth(window.innerWidth);
+	};
 
 	return (
 		<DataContext.Provider
@@ -52,14 +43,12 @@ function DataProvider(props: DataProviderProps) {
 				setCardYearExp,
 				cardCVC,
 				setCardCVC,
+				inputsErrors,
+				setInputsErrors,
 				showForm,
 				setShowForm,
 				windowWidth,
 				setWindowWidth,
-				inputsErrors,
-				setInputsErrors,
-				inputsOK,
-				setInputsOK,
 			}}>
 			{props.children}
 		</DataContext.Provider>

@@ -22,11 +22,11 @@ export default function Input(props: InputProps) {
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	const inputFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setBackground(focusBackgroud);
+		setBackground(isOK ? focusBackgroud : errorBackgroud);
 	};
 
 	const inputBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setBackground(blurBackgroud);
+		setBackground(isOK ? blurBackgroud : errorBackgroud);
 	};
 
 	// Update styles by input status

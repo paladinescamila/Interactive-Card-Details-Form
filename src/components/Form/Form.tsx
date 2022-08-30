@@ -16,24 +16,21 @@ export default function Form() {
 	const [validForm, setValidForm] = useState(false);
 	const [submitError, setSubmitError] = useState('');
 
-	const {inputsErrors, setInputsErrors, inputsOK, setInputsOK} = useContext(DataContext);
+	const {inputsErrors, setInputsErrors} = useContext(DataContext);
 
 	// Update styles by input errors
 	useEffect(() => {
-		let currentInputsOK = {...inputsOK};
 		let currentValidForm = true;
 
 		Object.keys(inputsErrors).forEach((key) => {
 			if (key === 'name' || key === 'number' || key === 'expMonth' || key === 'expYear' || key === 'cvc') {
-				currentInputsOK[key] = inputsErrors[key].size === 0;
-				if (!currentInputsOK[key]) currentValidForm = false;
+				if (inputsErrors[key].size > 0) currentValidForm = false;
 			}
 		});
 
 		if (currentValidForm) setSubmitError('');
 
 		setValidForm(currentValidForm);
-		setInputsOK(currentInputsOK);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [inputsErrors]);
@@ -153,8 +150,20 @@ export default function Form() {
 					<fieldset className='form-exp-container'>
 						<label>EXP. DATE (MM/YY)</label>
 						<div>
-							<Input type='number' placeholder='MM' value={cardMonthExp} onChange={changeCardMonthExp} isOK={inputsOK.expMonth} />
-							<Input type='number' placeholder='YY' value={cardYearExp} onChange={changeCardYearExp} isOK={inputsOK.expYear} />
+							<Input
+								type='number'
+								placeholder='MM'
+								value={cardMonthExp}
+								onChange={changeCardMonthExp}
+								isOK={inputsErrors.expMonth.size === 0}
+							/>
+							<Input
+								type='number'
+								placeholder='YY'
+								value={cardYearExp}
+								onChange={changeCardYearExp}
+								isOK={inputsErrors.expYear.size === 0}
+							/>
 						</div>
 						<p className='error-message'>{[...Array.from(inputsErrors.expMonth), ...Array.from(inputsErrors.expYear)][0]}</p>
 					</fieldset>

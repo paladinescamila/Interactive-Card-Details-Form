@@ -18,9 +18,9 @@ export default function InputSection(props: InputSectionProps) {
 	const {label, type, placeholder} = settings[id];
 
 	// Error handling
-	const {inputsOK, inputsErrors} = useContext(DataContext);
-	const isOK = inputsOK[id];
+	const {inputsErrors} = useContext(DataContext);
 	const error = Array.from(inputsErrors[id])[0];
+	const isOK = inputsErrors[id].size === 0;
 
 	return (
 		<fieldset>
