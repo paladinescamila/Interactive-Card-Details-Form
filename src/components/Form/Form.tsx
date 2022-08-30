@@ -15,7 +15,7 @@ export default function Form() {
 	const changeCardName = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setCardName(e.target.value);
 
-		if (e.target.value.trim() === '') addError('name', "Can't be empty");
+		if (e.target.value.trim() === '') addError('name', "Can't be blank");
 		else removeError('name', "Can't be blank");
 	};
 
@@ -45,7 +45,8 @@ export default function Form() {
 
 	// Card expiration month change event
 	const changeCardMonthExp = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.value.length <= 2) setCardMonthExp(e.target.value);
+		if (e.target.value.length > 2) return;
+		setCardMonthExp(e.target.value);
 
 		if (e.target.value.trim() === '') addError('expMonth', "Can't be blank");
 		else removeError('expMonth', "Can't be blank");
@@ -56,18 +57,20 @@ export default function Form() {
 
 	// Card expiration year change event
 	const changeCardYearExp = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.value.length <= 2) setCardYearExp(e.target.value);
+		if (e.target.value.length > 2) return;
+		setCardYearExp(e.target.value);
 
 		if (e.target.value.trim() === '') addError('expYear', "Can't be blank");
 		else removeError('expYear', "Can't be blank");
 
-		if (Number(e.target.value) + 2000 < new Date().getFullYear()) addError('expYear', 'Wrong year, only future');
-		else removeError('expYear', 'Wrong year, only future');
+		if (Number(e.target.value) + 2000 < new Date().getFullYear()) addError('expYear', 'Wrong year, only future or present');
+		else removeError('expYear', 'Wrong year, only future or present');
 	};
 
 	// Card CVC change event
 	const changeCardCVC = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.value.length <= 3) setCardCVC(e.target.value);
+		if (e.target.value.length > 3) return;
+		setCardCVC(e.target.value);
 
 		if (e.target.value.trim() === '') addError('cvc', "Can't be blank");
 		else removeError('cvc', "Can't be blank");
@@ -79,7 +82,8 @@ export default function Form() {
 	// Error handling
 
 	const [showForm, setShowForm] = useState(true);
-	const [disabled, setDisabled] = useState(true);
+	const [validForm, setValidForm] = useState(false);
+	const [submitError, setSubmitError] = useState('');
 
 	type InputType = 'name' | 'number' | 'expMonth' | 'expYear' | 'cvc';
 	type ErrorMap = {[key in InputType]: Set<string>};
@@ -103,18 +107,20 @@ export default function Form() {
 
 	useEffect(() => {
 		let currentInputStyles = {...inputsStyles};
-		let validInputs = true;
+		let currentValidForm = true;
 
 		Object.keys(inputsErrors).forEach((key) => {
 			if (key === 'name' || key === 'number' || key === 'expMonth' || key === 'expYear' || key === 'cvc') {
 				if (inputsErrors[key].size > 0) {
 					currentInputStyles[key] = {borderColor: '#ff0000'};
-					validInputs = false;
+					currentValidForm = false;
 				} else currentInputStyles[key] = {};
 			}
 		});
 
-		if (validInputs) setDisabled(false);
+		if (currentValidForm) setSubmitError('');
+
+		setValidForm(currentValidForm);
 		setInputsStyles(currentInputStyles);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -140,19 +146,31 @@ export default function Form() {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
+		if (!validForm) return;
+
+		const emptyName = cardName.trim() === '';
+		const emptyNumber = cardNumber.trim() === '';
+		const emptyExpMonth = cardMonthExp.trim() === '';
+		const emptyExpYear = cardYearExp.trim() === '';
+		const emptyCVC = cardCVC.trim() === '';
+
+		if (emptyName || emptyNumber || emptyExpMonth || emptyExpYear || emptyCVC) {
+			setSubmitError('Please fill in all fields');
+			return;
+		}
+
 		setShowForm(false);
-		setDisabled(true);
+	};
+
+	const handleContinue = (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+		setShowForm(true);
 
 		setCardName('');
 		setCardNumber('');
 		setCardMonthExp('');
 		setCardYearExp('');
 		setCardCVC('');
-	};
-
-	const handleContinue = (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
-		setShowForm(true);
 	};
 
 	return (
@@ -189,7 +207,8 @@ export default function Form() {
 						<p className='error-message'>{Array.from(inputsErrors.cvc)[0]}</p>
 					</fieldset>
 				</div>
-				<input className={`form-submit ${disabled ? 'disabled' : ''}`} type='submit' value='Confirm' disabled={disabled} />
+				<input className='form-submit' type='submit' value='Confirm' />
+				<p className='error-message-submit'>{submitError}</p>
 			</form>
 
 			<article className={`form-message ${showForm ? 'decrease' : 'increase'}`}>

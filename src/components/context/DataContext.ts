@@ -11,6 +11,8 @@ interface DataContextProps {
 	setCardYearExp: (cardYearExp: string) => void;
 	cardCVC: string;
 	setCardCVC: (cardCVV: string) => void;
+	windowWidth: number;
+	setWindowWidth: (windowWidth: number) => void;
 }
 
 const DataContext = createContext<DataContextProps>({} as DataContextProps);

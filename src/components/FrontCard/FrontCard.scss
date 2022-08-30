@@ -72,3 +72,38 @@
 	grid-area: exp;
 	text-align: end;
 }
+
+@media (max-width: 1000px) {
+	.front-card-container {
+		width: 286px;
+		height: 157px;
+		z-index: 10;
+		padding: 18px 23px 23px 20px;
+		grid-gap: 24px;
+
+		&::before {
+			width: 30px;
+			height: 30px;
+			top: 18px;
+			left: 20px;
+		}
+
+		&::after {
+			width: 14px;
+			height: 14px;
+			top: 26px;
+			left: 60px;
+		}
+	}
+
+	.front-card-number {
+		font-size: 18px;
+		letter-spacing: 18px * 0.12;
+	}
+
+	.front-card-name,
+	.front-card-exp {
+		font-size: 10px;
+		letter-spacing: 10px * 0.08;
+	}
+}

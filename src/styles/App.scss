@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
 @import './variables.scss';
 
+$total: 447px + 95px;
+
 * {
 	box-sizing: border-box;
 	padding: 0;
@@ -23,34 +25,100 @@ body {
 	height: 100%;
 }
 
-.bg-main {
-	width: 483px;
-	height: 100%;
+.bg-main-desktop,
+.bg-main-mobile {
 	position: absolute;
 	top: 0;
 	left: 0;
 	z-index: -10;
 }
 
+.bg-main-desktop {
+	width: 34vw;
+	height: 100%;
+}
+
+.bg-main-mobile {
+	width: 100%;
+	height: 240px;
+}
+
 .components {
 	display: grid;
-	grid-template-columns: 447px 360px;
-	grid-template-rows: repeat(2, 1fr);
-	grid-gap: 37px 220px;
-	grid-template-areas: 'front form' 'back form';
+	grid-template-columns: $total 380px;
+	grid-template-rows: 527px;
+	grid-template-areas: 'cards form';
+	grid-gap: 220px;
+}
+
+.cards {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas: 'front' 'back';
+	grid-area: cards;
 }
 
 .front-card-container {
+	align-self: flex-start;
+	justify-self: flex-start;
 	grid-area: front;
 }
 
 .back-card-container {
+	align-self: flex-end;
+	justify-self: flex-end;
 	grid-area: back;
-	margin-left: 95px;
 }
 
 .form-container,
 .form-message {
 	grid-area: form;
 	align-self: center;
+}
+
+@media (max-width: 1430px) {
+	.components {
+		grid-gap: 100px;
+	}
+}
+
+@media (max-width: 1200px) {
+	.components {
+		$total: 447px + 50px;
+		grid-template-columns: $total 380px;
+		grid-gap: 50px;
+	}
+}
+
+@media (max-width: 1000px) {
+	#root {
+		align-items: flex-start;
+		padding-top: 32px;
+	}
+
+	.components {
+		grid-template-columns: 343px;
+		grid-template-rows: 251px 325px;
+		grid-template-areas: 'cards' 'form';
+		grid-gap: 50px;
+	}
+
+	.cards {
+		grid-template-areas: 'back' 'front';
+	}
+
+	.front-card-container {
+		align-self: flex-end;
+		justify-self: flex-start;
+	}
+
+	.back-card-container {
+		align-self: flex-start;
+		justify-self: flex-end;
+	}
+
+	.form-container {
+		justify-self: center;
+	}
 }

@@ -11,6 +11,11 @@ function DataProvider(props: DataProviderProps) {
 	const [cardMonthExp, setCardMonthExp] = useState('');
 	const [cardYearExp, setCardYearExp] = useState('');
 	const [cardCVC, setCardCVC] = useState('');
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+	window.onresize = () => {
+		setWindowWidth(window.innerWidth);
+	};
 
 	return (
 		<DataContext.Provider
@@ -25,6 +30,8 @@ function DataProvider(props: DataProviderProps) {
 				setCardYearExp,
 				cardCVC,
 				setCardCVC,
+				windowWidth,
+				setWindowWidth,
 			}}>
 			{props.children}
 		</DataContext.Provider>

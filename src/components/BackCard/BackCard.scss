@@ -24,3 +24,16 @@
 	top: 112px;
 	right: 60px;
 }
+
+@media (max-width: 1000px) {
+	.back-card-container {
+		width: 286px;
+		height: 157px;
+	}
+
+	.back-card-cvc {
+		top: 70px;
+		right: 40px;
+		font-size: 10px;
+	}
+}
