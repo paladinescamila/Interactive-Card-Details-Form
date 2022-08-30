@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import DataContext from '../../context/DataContext';
 import IconComplete from './assets/icon-complete.svg';
+import Input from '../Input/Input';
 import './Form.scss';
 
 export default function Form() {
@@ -18,7 +19,7 @@ export default function Form() {
 
 	type InputType = 'name' | 'number' | 'expMonth' | 'expYear' | 'cvc';
 	type ErrorMap = {[key in InputType]: Set<string>};
-	type StyleMap = {[key in InputType]: object};
+	type CheckMap = {[key in InputType]: boolean};
 
 	// Errors by input
 	const [inputsErrors, setInputsErrors] = useState<ErrorMap>({
@@ -29,33 +30,31 @@ export default function Form() {
 		cvc: new Set(),
 	});
 
-	// Styles by input (border color)
-	const [inputsStyles, setInputsStyles] = useState<StyleMap>({
-		name: {},
-		number: {},
-		expMonth: {},
-		expYear: {},
-		cvc: {},
+	// If there is an error in the input
+	const [inputsOK, setInputsOK] = useState<CheckMap>({
+		name: true,
+		number: true,
+		expMonth: true,
+		expYear: true,
+		cvc: true,
 	});
 
 	// Update styles by input errors
 	useEffect(() => {
-		let currentInputStyles = {...inputsStyles};
+		let currentInputsOK = {...inputsOK};
 		let currentValidForm = true;
 
 		Object.keys(inputsErrors).forEach((key) => {
 			if (key === 'name' || key === 'number' || key === 'expMonth' || key === 'expYear' || key === 'cvc') {
-				if (inputsErrors[key].size > 0) {
-					currentInputStyles[key] = {borderColor: '#ff0000'};
-					currentValidForm = false;
-				} else currentInputStyles[key] = {};
+				currentInputsOK[key] = inputsErrors[key].size === 0;
+				if (!currentInputsOK[key]) currentValidForm = false;
 			}
 		});
 
 		if (currentValidForm) setSubmitError('');
 
 		setValidForm(currentValidForm);
-		setInputsStyles(currentInputStyles);
+		setInputsOK(currentInputsOK);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [inputsErrors]);
@@ -181,32 +180,26 @@ export default function Form() {
 			<form onSubmit={handleSubmit} className={`form-container ${showForm ? 'increase' : 'decrease'}`}>
 				<fieldset className='form-name-container'>
 					<label>CARDHOLDER NAME</label>
-					<input type='text' placeholder='e.g. Jane Appleseed' value={cardName} onChange={changeCardName} style={inputsStyles.name} />
+					<Input type='text' placeholder='e.g. Jane Appleseed' value={cardName} onChange={changeCardName} isOK={inputsOK.name} />
 					<p className='error-message'>{Array.from(inputsErrors.name)[0]}</p>
 				</fieldset>
 				<fieldset className='form-number-container'>
 					<label>CARD NUMBER</label>
-					<input
-						type='text'
-						placeholder='e.g. 1234 5678 9123 0000'
-						value={cardNumber}
-						onChange={changeCardNumber}
-						style={inputsStyles.number}
-					/>
+					<Input type='text' placeholder='e.g. 1234 5678 9123 0000' value={cardNumber} onChange={changeCardNumber} isOK={inputsOK.number} />
 					<p className='error-message'>{Array.from(inputsErrors.number)[0]}</p>
 				</fieldset>
 				<div className='form-exp-and-cvc'>
 					<fieldset className='form-exp-container'>
 						<label>EXP. DATE (MM/YY)</label>
 						<div>
-							<input type='number' placeholder='MM' value={cardMonthExp} onChange={changeCardMonthExp} style={inputsStyles.expMonth} />
-							<input type='number' placeholder='YY' value={cardYearExp} onChange={changeCardYearExp} style={inputsStyles.expYear} />
+							<Input type='number' placeholder='MM' value={cardMonthExp} onChange={changeCardMonthExp} isOK={inputsOK.expMonth} />
+							<Input type='number' placeholder='YY' value={cardYearExp} onChange={changeCardYearExp} isOK={inputsOK.expYear} />
 						</div>
 						<p className='error-message'>{[...Array.from(inputsErrors.expMonth), ...Array.from(inputsErrors.expYear)][0]}</p>
 					</fieldset>
 					<fieldset className='form-cvc-container'>
 						<label>CVC</label>
-						<input type='number' placeholder='e.g. 123' value={cardCVC} onChange={changeCardCVC} style={inputsStyles.cvc} />
+						<Input type='number' placeholder='e.g. 123' value={cardCVC} onChange={changeCardCVC} isOK={inputsOK.cvc} />
 						<p className='error-message'>{Array.from(inputsErrors.cvc)[0]}</p>
 					</fieldset>
 				</div>

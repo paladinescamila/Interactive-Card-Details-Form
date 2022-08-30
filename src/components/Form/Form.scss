@@ -20,24 +20,6 @@ label {
 	letter-spacing: 12px * 0.17;
 }
 
-input[type='text'],
-input[type='number'] {
-	border: 1px solid $light-grayish-violet;
-	padding: 15px;
-	border-radius: 10px;
-	font-size: 18px;
-}
-
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
-}
-
-input[type='number'] {
-	-moz-appearance: textfield;
-}
-
 .input-error {
 	border: 1px solid $red !important;
 }
@@ -57,14 +39,10 @@ input[type='number'] {
 .form-exp-container {
 	display: flex;
 
-	div {
+	& > div {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		grid-gap: 10px;
-
-		input {
-			width: 100%;
-		}
 	}
 }
 

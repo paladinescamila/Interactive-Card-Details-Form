@@ -1,0 +1,33 @@
+@import '../../styles/variables.scss';
+
+.input-container,
+input[type='text'],
+input[type='number'] {
+	border-radius: 10px;
+}
+
+.input-container {
+	background: $light-grayish-violet;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+input[type='text'],
+input[type='number'] {
+	padding: 15px;
+	font-size: 18px;
+	margin: 1px;
+	border: none;
+	width: 100%;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type='number'] {
+	-moz-appearance: textfield;
+}
