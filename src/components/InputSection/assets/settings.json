@@ -1,0 +1,22 @@
+{
+	"name": {
+		"label": "CARDHOLDER NAME",
+		"type": "text",
+		"placeholder": "e.g. Jane Appleseed"
+	},
+	"number": {
+		"label": "CARD NUMBER",
+		"type": "text",
+		"placeholder": "e.g. 1234 5678 9123 0000"
+	},
+	"exp": {
+		"label": "EXP. DATE (MM/YY)",
+		"types": ["number", "number"],
+		"placeholders": ["MM", "YY"]
+	},
+	"cvc": {
+		"label": "CVC",
+		"type": "number",
+		"placeholder": "e.g. 123"
+	}
+}

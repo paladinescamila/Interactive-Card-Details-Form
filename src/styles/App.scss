@@ -77,6 +77,14 @@ body {
 	align-self: center;
 }
 
+.increase {
+	transform: scale(1);
+}
+
+.decrease {
+	transform: scale(0);
+}
+
 @media (max-width: 1430px) {
 	.components {
 		grid-gap: 100px;

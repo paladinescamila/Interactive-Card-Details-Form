@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
-import DataContext from '../../context/DataContext';
-import IconComplete from './assets/icon-complete.svg';
+import DataContext, {InputType} from '../../context/DataContext';
+import InputSection from '../InputSection/InputSection';
 import Input from '../Input/Input';
 import './Form.scss';
 
@@ -13,31 +13,10 @@ export default function Form() {
 	const {cardCVC, setCardCVC} = useContext(DataContext);
 
 	// Error handling
-	const [showForm, setShowForm] = useState(true);
 	const [validForm, setValidForm] = useState(false);
 	const [submitError, setSubmitError] = useState('');
 
-	type InputType = 'name' | 'number' | 'expMonth' | 'expYear' | 'cvc';
-	type ErrorMap = {[key in InputType]: Set<string>};
-	type CheckMap = {[key in InputType]: boolean};
-
-	// Errors by input
-	const [inputsErrors, setInputsErrors] = useState<ErrorMap>({
-		name: new Set(),
-		number: new Set(),
-		expMonth: new Set(),
-		expYear: new Set(),
-		cvc: new Set(),
-	});
-
-	// If there is an error in the input
-	const [inputsOK, setInputsOK] = useState<CheckMap>({
-		name: true,
-		number: true,
-		expMonth: true,
-		expYear: true,
-		cvc: true,
-	});
+	const {inputsErrors, setInputsErrors, inputsOK, setInputsOK} = useContext(DataContext);
 
 	// Update styles by input errors
 	useEffect(() => {
@@ -144,6 +123,8 @@ export default function Form() {
 	};
 
 	// Form submission
+	const {showForm, setShowForm} = useContext(DataContext);
+
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
@@ -163,31 +144,11 @@ export default function Form() {
 		setShowForm(false);
 	};
 
-	// Form reset
-	const handleContinue = (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
-		setShowForm(true);
-
-		setCardName('');
-		setCardNumber('');
-		setCardMonthExp('');
-		setCardYearExp('');
-		setCardCVC('');
-	};
-
 	return (
 		<>
 			<form onSubmit={handleSubmit} className={`form-container ${showForm ? 'increase' : 'decrease'}`}>
-				<fieldset className='form-name-container'>
-					<label>CARDHOLDER NAME</label>
-					<Input type='text' placeholder='e.g. Jane Appleseed' value={cardName} onChange={changeCardName} isOK={inputsOK.name} />
-					<p className='error-message'>{Array.from(inputsErrors.name)[0]}</p>
-				</fieldset>
-				<fieldset className='form-number-container'>
-					<label>CARD NUMBER</label>
-					<Input type='text' placeholder='e.g. 1234 5678 9123 0000' value={cardNumber} onChange={changeCardNumber} isOK={inputsOK.number} />
-					<p className='error-message'>{Array.from(inputsErrors.number)[0]}</p>
-				</fieldset>
+				<InputSection id='name' value={cardName} onChange={changeCardName} />
+				<InputSection id='number' value={cardNumber} onChange={changeCardNumber} />
 				<div className='form-exp-and-cvc'>
 					<fieldset className='form-exp-container'>
 						<label>EXP. DATE (MM/YY)</label>
@@ -197,22 +158,11 @@ export default function Form() {
 						</div>
 						<p className='error-message'>{[...Array.from(inputsErrors.expMonth), ...Array.from(inputsErrors.expYear)][0]}</p>
 					</fieldset>
-					<fieldset className='form-cvc-container'>
-						<label>CVC</label>
-						<Input type='number' placeholder='e.g. 123' value={cardCVC} onChange={changeCardCVC} isOK={inputsOK.cvc} />
-						<p className='error-message'>{Array.from(inputsErrors.cvc)[0]}</p>
-					</fieldset>
+					<InputSection id='cvc' value={cardCVC} onChange={changeCardCVC} />
 				</div>
 				<input className='form-submit' type='submit' value='Confirm' />
 				<p className='error-message-submit'>{submitError}</p>
 			</form>
-
-			<article className={`form-message ${showForm ? 'decrease' : 'increase'}`}>
-				<img src={IconComplete} alt='' aria-hidden />
-				<p>THAN YOU!</p>
-				<p>We've added your card details</p>
-				<button onClick={handleContinue}>Continue</button>
-			</article>
 		</>
 	);
 }

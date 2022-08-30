@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import './Input.scss';
 
 interface InputProps {
@@ -10,7 +10,7 @@ interface InputProps {
 }
 
 export default function Input(props: InputProps) {
-	// Component properties
+	// Component data
 	const {type, placeholder, value, onChange, isOK} = props;
 
 	// Border style (container background)

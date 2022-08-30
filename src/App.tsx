@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './styles/App.scss';
 import DataContext from './context/DataContext';
 import DesktopBackground from './assets/bg-main-desktop.png';
@@ -6,9 +6,10 @@ import MobileBackground from './assets/bg-main-mobile.png';
 import FrontCard from './components/FrontCard/FrontCard';
 import BackCard from './components/BackCard/BackCard';
 import Form from './components/Form/Form';
+import Completed from './components/Completed/Completed';
 
 function App() {
-	const {windowWidth} = React.useContext(DataContext);
+	const {windowWidth} = useContext(DataContext);
 
 	return (
 		<>
@@ -23,6 +24,7 @@ function App() {
 					<BackCard />
 				</div>
 				<Form />
+				<Completed />
 			</section>
 		</>
 	);
