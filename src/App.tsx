@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/App.scss';
-import DataContext from './components/context/DataContext';
+import DataContext from './context/DataContext';
 import DesktopBackground from './assets/bg-main-desktop.png';
 import MobileBackground from './assets/bg-main-mobile.png';
 import FrontCard from './components/FrontCard/FrontCard';

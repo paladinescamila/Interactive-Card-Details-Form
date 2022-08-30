@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import DataContext from '../context/DataContext';
+import DataContext from '../../context/DataContext';
 import IconComplete from './assets/icon-complete.svg';
 import './Form.scss';
 

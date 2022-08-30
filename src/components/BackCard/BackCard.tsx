@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import './BackCard.scss';
 import backgroundImage from './assets/bg-card-back.png';
-import DataContext from './../context/DataContext';
+import DataContext from '../../context/DataContext';
 
 export default function BackCard() {
 	// Card data
