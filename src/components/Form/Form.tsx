@@ -11,6 +11,71 @@ export default function Form() {
 	const {cardYearExp, setCardYearExp} = useContext(DataContext);
 	const {cardCVC, setCardCVC} = useContext(DataContext);
 
+	// Error handling
+	const [showForm, setShowForm] = useState(true);
+	const [validForm, setValidForm] = useState(false);
+	const [submitError, setSubmitError] = useState('');
+
+	type InputType = 'name' | 'number' | 'expMonth' | 'expYear' | 'cvc';
+	type ErrorMap = {[key in InputType]: Set<string>};
+	type StyleMap = {[key in InputType]: object};
+
+	// Errors by input
+	const [inputsErrors, setInputsErrors] = useState<ErrorMap>({
+		name: new Set(),
+		number: new Set(),
+		expMonth: new Set(),
+		expYear: new Set(),
+		cvc: new Set(),
+	});
+
+	// Styles by input (border color)
+	const [inputsStyles, setInputsStyles] = useState<StyleMap>({
+		name: {},
+		number: {},
+		expMonth: {},
+		expYear: {},
+		cvc: {},
+	});
+
+	// Update styles by input errors
+	useEffect(() => {
+		let currentInputStyles = {...inputsStyles};
+		let currentValidForm = true;
+
+		Object.keys(inputsErrors).forEach((key) => {
+			if (key === 'name' || key === 'number' || key === 'expMonth' || key === 'expYear' || key === 'cvc') {
+				if (inputsErrors[key].size > 0) {
+					currentInputStyles[key] = {borderColor: '#ff0000'};
+					currentValidForm = false;
+				} else currentInputStyles[key] = {};
+			}
+		});
+
+		if (currentValidForm) setSubmitError('');
+
+		setValidForm(currentValidForm);
+		setInputsStyles(currentInputStyles);
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [inputsErrors]);
+
+	// Add an error for a specific input
+	const addError = (inputName: InputType, message: string) => {
+		let labelErrors = inputsErrors[inputName];
+		labelErrors.add(message);
+
+		setInputsErrors({...inputsErrors, [inputName]: labelErrors});
+	};
+
+	// Remove an error for a specific input
+	const removeError = (inputName: InputType, message: string) => {
+		let labelErrors = inputsErrors[inputName];
+		labelErrors.delete(message);
+
+		setInputsErrors({...inputsErrors, [inputName]: labelErrors});
+	};
+
 	// Cardholder name change event
 	const changeCardName = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setCardName(e.target.value);
@@ -79,69 +144,6 @@ export default function Form() {
 		else removeError('cvc', 'Wrong format, 3 digits only');
 	};
 
-	// Error handling
-
-	const [showForm, setShowForm] = useState(true);
-	const [validForm, setValidForm] = useState(false);
-	const [submitError, setSubmitError] = useState('');
-
-	type InputType = 'name' | 'number' | 'expMonth' | 'expYear' | 'cvc';
-	type ErrorMap = {[key in InputType]: Set<string>};
-	type StyleMap = {[key in InputType]: object};
-
-	const [inputsErrors, setInputsErrors] = useState<ErrorMap>({
-		name: new Set(),
-		number: new Set(),
-		expMonth: new Set(),
-		expYear: new Set(),
-		cvc: new Set(),
-	});
-
-	const [inputsStyles, setInputsStyles] = useState<StyleMap>({
-		name: {},
-		number: {},
-		expMonth: {},
-		expYear: {},
-		cvc: {},
-	});
-
-	useEffect(() => {
-		let currentInputStyles = {...inputsStyles};
-		let currentValidForm = true;
-
-		Object.keys(inputsErrors).forEach((key) => {
-			if (key === 'name' || key === 'number' || key === 'expMonth' || key === 'expYear' || key === 'cvc') {
-				if (inputsErrors[key].size > 0) {
-					currentInputStyles[key] = {borderColor: '#ff0000'};
-					currentValidForm = false;
-				} else currentInputStyles[key] = {};
-			}
-		});
-
-		if (currentValidForm) setSubmitError('');
-
-		setValidForm(currentValidForm);
-		setInputsStyles(currentInputStyles);
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [inputsErrors]);
-
-	// Add an error for a specific input
-	const addError = (inputName: InputType, message: string) => {
-		let labelErrors = inputsErrors[inputName];
-		labelErrors.add(message);
-
-		setInputsErrors({...inputsErrors, [inputName]: labelErrors});
-	};
-
-	// Remove an error for a specific input
-	const removeError = (inputName: InputType, message: string) => {
-		let labelErrors = inputsErrors[inputName];
-		labelErrors.delete(message);
-
-		setInputsErrors({...inputsErrors, [inputName]: labelErrors});
-	};
-
 	// Form submission
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -162,6 +164,7 @@ export default function Form() {
 		setShowForm(false);
 	};
 
+	// Form reset
 	const handleContinue = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		setShowForm(true);
