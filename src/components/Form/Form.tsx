@@ -15,8 +15,15 @@ export default function Form() {
 	// Error handling
 	const [validForm, setValidForm] = useState(false);
 	const [submitError, setSubmitError] = useState('');
-
 	const {inputsErrors, setInputsErrors} = useContext(DataContext);
+
+	// Error messages
+	const isEmpty = "Can't be blank";
+	const lessThan16Digits = 'Wrong format, 16 digits only';
+	const notNumbers = 'Wrong format, numbers only';
+	const notMonthRange = 'Wrong format, 1-12 only';
+	const pastYear = 'Wrong year, only future or present';
+	const lessThan3Digits = 'Wrong format, 3 digits only';
 
 	// Update styles by input errors
 	useEffect(() => {
@@ -55,8 +62,8 @@ export default function Form() {
 	const changeCardName = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setCardName(e.target.value);
 
-		if (e.target.value.trim() === '') addError('name', "Can't be blank");
-		else removeError('name', "Can't be blank");
+		if (e.target.value.trim() === '') addError('name', isEmpty);
+		else removeError('name', isEmpty);
 	};
 
 	// Card number change event
@@ -73,14 +80,14 @@ export default function Form() {
 
 		setCardNumber(newValue);
 
-		if (e.target.value.split(' ').join('') === '') addError('number', "Can't be blank");
-		else removeError('number', "Can't be blank");
+		if (e.target.value.split(' ').join('') === '') addError('number', isEmpty);
+		else removeError('number', isEmpty);
 
-		if (e.target.value.split(' ').join('').length < 16) addError('number', 'Wrong format, 16 digits only');
-		else removeError('number', 'Wrong format, 16 digits only');
+		if (e.target.value.split(' ').join('').length < 16) addError('number', lessThan16Digits);
+		else removeError('number', lessThan16Digits);
 
-		if (/^\d+$/.test(e.target.value.split(' ').join('')) === false) addError('number', 'Wrong format, numbers only');
-		else removeError('number', 'Wrong format, numbers only');
+		if (/^\d+$/.test(e.target.value.split(' ').join('')) === false) addError('number', notNumbers);
+		else removeError('number', notNumbers);
 	};
 
 	// Card expiration month change event
@@ -88,11 +95,11 @@ export default function Form() {
 		if (e.target.value.length > 2) return;
 		setCardMonthExp(e.target.value);
 
-		if (e.target.value.trim() === '') addError('expMonth', "Can't be blank");
-		else removeError('expMonth', "Can't be blank");
+		if (e.target.value.trim() === '') addError('expMonth', isEmpty);
+		else removeError('expMonth', isEmpty);
 
-		if (Number(e.target.value) < 1 || Number(e.target.value) > 12) addError('expMonth', 'Wrong format, 1-12 only');
-		else removeError('expMonth', 'Wrong format, 1-12 only');
+		if (Number(e.target.value) < 1 || Number(e.target.value) > 12) addError('expMonth', notMonthRange);
+		else removeError('expMonth', notMonthRange);
 	};
 
 	// Card expiration year change event
@@ -100,11 +107,11 @@ export default function Form() {
 		if (e.target.value.length > 2) return;
 		setCardYearExp(e.target.value);
 
-		if (e.target.value.trim() === '') addError('expYear', "Can't be blank");
-		else removeError('expYear', "Can't be blank");
+		if (e.target.value.trim() === '') addError('expYear', isEmpty);
+		else removeError('expYear', isEmpty);
 
-		if (Number(e.target.value) + 2000 < new Date().getFullYear()) addError('expYear', 'Wrong year, only future or present');
-		else removeError('expYear', 'Wrong year, only future or present');
+		if (Number(e.target.value) + 2000 < new Date().getFullYear()) addError('expYear', pastYear);
+		else removeError('expYear', pastYear);
 	};
 
 	// Card CVC change event
@@ -112,11 +119,11 @@ export default function Form() {
 		if (e.target.value.length > 3) return;
 		setCardCVC(e.target.value);
 
-		if (e.target.value.trim() === '') addError('cvc', "Can't be blank");
-		else removeError('cvc', "Can't be blank");
+		if (e.target.value.trim() === '') addError('cvc', isEmpty);
+		else removeError('cvc', isEmpty);
 
-		if (e.target.value.length < 3) addError('cvc', 'Wrong format, 3 digits only');
-		else removeError('cvc', 'Wrong format, 3 digits only');
+		if (e.target.value.length < 3) addError('cvc', lessThan3Digits);
+		else removeError('cvc', lessThan3Digits);
 	};
 
 	// Form submission
@@ -125,7 +132,14 @@ export default function Form() {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		if (!validForm) return;
+		// Check if the fields are not correct
+
+		if (!validForm) {
+			setSubmitError('Please correct the fields');
+			return;
+		}
+
+		// Check if the fields are empty
 
 		const emptyName = cardName.trim() === '';
 		const emptyNumber = cardNumber.trim() === '';
