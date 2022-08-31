@@ -3,13 +3,13 @@
 .front-card-container {
 	width: 447px;
 	height: 245px;
-	padding: 35px;
+	padding: 30px;
 	position: relative;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 1fr;
 	grid-template-areas: 'number number' 'name exp';
-	grid-gap: 38px;
+	grid-gap: 25px;
 	z-index: 10000;
 
 	&::before {
