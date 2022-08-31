@@ -18,14 +18,14 @@ function App() {
 			) : (
 				<img className='bg-main-mobile' src={MobileBackground} alt='' aria-hidden />
 			)}
-			<section className='components'>
+			<div className='components'>
 				<div className='cards'>
 					<FrontCard />
 					<BackCard />
 				</div>
 				<Form />
 				<Completed />
-			</section>
+			</div>
 		</>
 	);
 }
