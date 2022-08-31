@@ -6,8 +6,8 @@ This is a solution to the [Interactive card details form challenge on Frontend M
 
 ## Links
 
--   [Solution URL](https://github.com/paladinescamila/Interactive-Card-Details-Form)
--   [Live Site URL](https://icdf-frontend-mentor.netlify.app/)
+-   [Solution](https://www.frontendmentor.io/solutions/interactive-card-details-form-9qQ6D4d3nB)
+-   [Live Site](https://icdf-frontend-mentor.netlify.app/)
 
 ## Built with
 
