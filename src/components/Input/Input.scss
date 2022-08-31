@@ -23,6 +23,11 @@ input[type='number'] {
 	color: $very-dark-violet;
 }
 
+input[type='text']::placeholder,
+input[type='number']::placeholder {
+	color: #bbb;
+}
+
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
 	-webkit-appearance: none;
