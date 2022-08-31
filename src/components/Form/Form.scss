@@ -3,7 +3,10 @@
 .form-container {
 	display: flex;
 	flex-direction: column;
-	width: 380px;
+	background-color: $white;
+	padding: 20px;
+	border-radius: 10px;
+	transition: transform 0.5s ease-in-out;
 }
 
 .form-exp-and-cvc {
@@ -51,21 +54,9 @@
 	margin-top: 10px;
 }
 
-.form-container {
-	background-color: $white;
-	padding: 20px;
-	border-radius: 10px;
-	transition: transform 0.5s ease-in-out;
-}
-
 @media (max-width: 1000px) {
 	.form-container {
-		width: 327px;
 		padding: 10px;
-	}
-
-	fieldset {
-		margin-bottom: 23px - 11px;
 	}
 
 	label {

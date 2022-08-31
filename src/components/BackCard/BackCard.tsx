@@ -12,8 +12,10 @@ export default function BackCard() {
 
 	return (
 		<article className='back-card-container'>
-			<img className='back-card-bg' src={backgroundImage} alt='' aria-hidden />
-			<div className='back-card-cvc'>{cardCVC !== '' ? cardCVC : cardCVCDefault}</div>
+			<div className='back-card-subcontainer'>
+				<img className='back-card-bg' src={backgroundImage} alt='' aria-hidden />
+				<div className='back-card-cvc'>{cardCVC !== '' ? cardCVC : cardCVCDefault}</div>
+			</div>
 		</article>
 	);
 }

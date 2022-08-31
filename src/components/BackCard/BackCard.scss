@@ -3,17 +3,19 @@
 .back-card-container {
 	width: 447px;
 	height: 245px;
-	padding: 35px;
+	position: absolute;
+}
+
+.back-card-subcontainer {
 	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 .back-card-bg {
 	position: absolute;
-	top: 0;
-	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: -1;
 }
 
 .back-card-cvc {

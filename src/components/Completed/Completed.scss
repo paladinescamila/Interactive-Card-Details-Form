@@ -1,6 +1,6 @@
 @import '../../styles/variables.scss';
 
-.form-message {
+.form-completed {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -43,5 +43,12 @@
 		&:hover {
 			transform: scale(1.01);
 		}
+	}
+}
+
+@media (max-width: 1000px) {
+	.form-completed {
+		padding: 10px;
+		width: 100%;
 	}
 }
