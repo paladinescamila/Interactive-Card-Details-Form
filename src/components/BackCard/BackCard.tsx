@@ -11,11 +11,11 @@ export default function BackCard() {
 	const cardCVCDefault = '000';
 
 	return (
-		<section className='back-card-container'>
+		<div className='back-card-container'>
 			<div className='back-card-subcontainer'>
 				<img className='back-card-bg' src={backgroundImage} alt='' aria-hidden />
 				<div className='back-card-cvc'>{cardCVC !== '' ? cardCVC : cardCVCDefault}</div>
 			</div>
-		</section>
+		</div>
 	);
 }

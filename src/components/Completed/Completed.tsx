@@ -20,11 +20,11 @@ export default function Completed() {
 	};
 
 	return (
-		<section className={`form-completed ${showForm ? 'decrease' : 'increase'}`}>
+		<div className={`form-completed ${showForm ? 'decrease' : 'increase'}`}>
 			<img src={IconComplete} alt='' aria-hidden />
 			<p>THAN YOU!</p>
 			<p>We've added your card details</p>
 			<button onClick={handleContinue}>Continue</button>
-		</section>
+		</div>
 	);
 }

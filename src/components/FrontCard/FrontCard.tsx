@@ -17,13 +17,13 @@ export default function FrontCard() {
 	const format = (n: number | string) => (Number(n) > 9 ? n : `0${Number(n)}`);
 
 	return (
-		<section className='front-card-container'>
+		<div className='front-card-container'>
 			<img className='front-card-bg' src={backgroundImage} alt='' aria-hidden />
 			<p className='front-card-number'>{cardNumber !== '' ? cardNumber : cardNumberDefault}</p>
 			<p className='front-card-name'>{cardName !== '' ? cardName.toUpperCase() : cardNameDefault}</p>
 			<p className='front-card-exp'>
 				{cardMonthExp !== '' ? format(cardMonthExp) : cardMonthExpDefault}/{cardYearExp !== '' ? format(cardYearExp) : cardYearExpDefault}
 			</p>
-		</section>
+		</div>
 	);
 }
